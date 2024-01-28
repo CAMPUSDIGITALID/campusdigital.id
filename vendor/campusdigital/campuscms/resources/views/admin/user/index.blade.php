@@ -29,9 +29,20 @@
                         <a href="{{ route('admin.user.create') }}" class="btn btn-sm btn-theme-1"><i class="fa fa-plus mr-2"></i> Tambah Data</a>
                         <a href="{{ route('admin.user.export', ['filter' => $filter]) }}" class="btn btn-sm btn-success"><i class="fa fa-file-excel-o mr-2"></i> Export ke Excel</a>
                         @if(has_access('UserController::import', Auth::user()->role, false))
-                        
                         <button id="myBtn" class="btn btn-danger">Import Excel</button>
                         @endif
+                        @if(has_access('UserController::active', Auth::user()->role, false))
+                        <form id="formMulti" class="formMulti" method="post" enctype="multipart/form-data" action="{{ route('admin.user.active') }}">
+                          @csrf
+                          <input type="hidden" id="inputActive" name="inputActive[]" value="">
+                          <select name="selectMulti" id="selectMulti" class="btn btn-light">
+                            <option selected>Pilih Aksi Aktifasi</option>
+                            <option value="1">Aktivasi Member</option>
+                            <option value="2">Non-Aktif Member</option>
+                          </select>
+                        </form>
+                        @endif
+                        
                     </div>
                     <div>
                         <select id="filter" class="form-control form-control-sm">
@@ -131,10 +142,10 @@
                         <table id="dataTable" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    <th width="20"><input type="checkbox"></th>
+                                    <th width="20"><input type="checkbox" class="checkAll" name="checkAll" onchange="doalert(this)"></th>
                                     <th>Identitas User</th>
                                     <th width="80">Role</th>
-                                    <th width="70">Saldo</th>
+                                    <th width="70">Asal Sekolah/Instansi</th>
                                     <th width="50">Refer</th>
                                     <th width="50">Status</th>
                                     <th width="90">Waktu Daftar</th>
@@ -237,6 +248,33 @@
 @include('faturcms::template.admin._js-table')
 
 <script type="text/javascript">
+    
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+    function doalert(checkboxElem) {
+      $(document).ready(function(){
+        if (checkboxElem.checked) {
+            $('.check').prop('checked', true);
+        } else {
+            $('.check').prop('checked', false);
+        }
+      })
+    }
+
+    $(document).ready(function(){
+      
+      $('select').change(function ()
+      {
+        var val = [];
+        $(':checkbox:checked').each(function(i){
+          val[i] = $(this).val();
+        });
+        
+        $('#inputActive').attr('value',val);
+          $(this).closest('form').submit();
+      });
+    })
+
 // Get the modal
 var modal = document.getElementById("myModal");
 
@@ -258,12 +296,12 @@ window.onclick = function(event) {
 }
     // DataTable
     generate_datatable("#dataTable", {
-		"url": "{{ route('admin.user.data', ['filter' => $filter]) }}",
+		    "url": "{{ route('admin.user.data', ['filter' => $filter]) }}",
         "columns": [
             {data: 'checkbox', name: 'checkbox'},
             {data: 'user_identity', name: 'user_identity'},
             {data: 'nama_role', name: 'nama_role'},
-            {data: 'saldo', name: 'saldo'},
+            {data: 'instansi', name: 'instansi'},
             {data: 'refer', name: 'refer'},
             {data: 'status', name: 'status'},
             {data: 'register_at', name: 'register_at'},

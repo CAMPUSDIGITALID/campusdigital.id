@@ -105,6 +105,13 @@
 								  <p class="h6 text-center fw-bold mb-3 mt-5">Akun Pendaftar</p>
 								  <div class="form-row">
 									<div class="form-group col-md-12 mb-2">
+										<label>Referal (bila ada)</label>
+										<input type="text" name="reference" class="form-control {{ $errors->has('reference') ? 'border-danger' : '' }}" value="{{ old('reference') }}" placeholder="kode referal ">
+										@if($errors->has('reference'))
+										<div class="small text-danger mt-1">{{ ucfirst($errors->first('reference')) }}</div>
+										@endif
+									</div>
+									<div class="form-group col-md-12 mb-2">
 										<label>Email <span class="text-danger">*</span></label>
 										<input type="email" name="email" class="form-control {{ $errors->has('email') ? 'border-danger' : '' }}" value="{{ old('email') }}" placeholder="Contoh: sirpobon8@gmail.com">
 										@if($errors->has('email'))

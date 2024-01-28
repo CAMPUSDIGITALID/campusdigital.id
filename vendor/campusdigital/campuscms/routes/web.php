@@ -88,6 +88,7 @@ Route::group(['middleware' => ['campuscms.admin']], function() use ($namespacePr
 	Route::post('/admin/user/import', $namespacePrefix.'UserController@import')->name('admin.user.import');
 	Route::post('/admin/user/update-photo', $namespacePrefix.'UserController@updatePhoto')->name('admin.user.updatephoto');
 	Route::get('/admin/user/images', $namespacePrefix.'UserController@showImages')->name('admin.user.images');
+	Route::post('/admin/user/active', $namespacePrefix.'UserController@active')->name('admin.user.active');
 
 	// Kategori User
 	Route::get('/admin/user/kategori', $namespacePrefix.'KategoriUserController@index')->name('admin.user.kategori.index');

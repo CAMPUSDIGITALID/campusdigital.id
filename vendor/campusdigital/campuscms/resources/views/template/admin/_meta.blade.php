@@ -1,4 +1,5 @@
 <meta name="description" content="{{ setting('site.name') }}">
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{{ setting('site.name') }}">
 <meta property="og:title" content="{{ setting('site.name') }}">

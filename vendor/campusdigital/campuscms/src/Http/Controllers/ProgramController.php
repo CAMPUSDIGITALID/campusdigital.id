@@ -131,26 +131,24 @@ class ProgramController extends Controller
     	// Data program
     	$program = Program::findOrFail($id);
 
-        // if($program->price != null){
-        //     $decode_array_price = json_decode($program->price, true);
-        //     $program->price = implode(',', $decode_array_price);
-        // }
-
-        // if($program->program_materi != null){
-        //     $decode_array = json_decode($program->program_materi, true);
-        //     $program->program_materi = implode(',',$decode_array);
-        // }
-    
-        // if($program->materi_desk != null){
-        //     $decode_array_desk = json_decode($program->materi_desk, true);
-        //     $program->materi_desk = implode(',',$decode_array_desk);
-        // }
-
         $program->program_materi = json_decode($program->program_materi, true);
         $program->materi_desk = json_decode($program->materi_desk, true);
-        $program->price = json_decode($program->price, true);
-        $count_program = count($program->program_materi);
-        $count_materi = count($program->materi_desk);
+        if($program->price != null){
+            $program->price = json_decode($program->price, true);
+        }
+        else{
+            $program->price = ["0","0"];
+        }
+        if($program->program_materi != null){
+            $count_program = count($program->program_materi);
+        }else{
+            $count_program = null;
+        }
+        if($program->materi_desk != null){
+            $count_materi = count($program->materi_desk);
+        }else{
+            $count_materi = null;
+        }
 
         if($count_materi > $count_program){
             $count = $count_materi;
@@ -216,7 +214,7 @@ class ProgramController extends Controller
             
             $program->program_title = $request->judul_program;
             $program->program_permalink = slugify($request->judul_program, 'program', 'program_permalink', 'id_program', $request->id);
-            $program->program_gambar = name_image($request, 'program_gambar','assets/images/program') != '' ? name_image($request, 'program_gambar','assets/images/program') : $program->program_gambar;
+            $program->program_gambar = $request->program_gambar != '' ? name_image($request, 'program_gambar','assets/images/program') : $program->program_gambar;
             $program->program_kategori = $request->kategori;
             $program->konten = $request->konten;
 

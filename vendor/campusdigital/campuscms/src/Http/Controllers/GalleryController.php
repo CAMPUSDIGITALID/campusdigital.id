@@ -68,7 +68,7 @@ class GalleryController extends Controller
             // Menambah data
             $gallerys = new Gallery;
             $gallerys->judul_gambar = $request->judul_gambar;
-            $gallerys->gambar = generate_image_name("assets/images/dokumentasi/", $request->gambar, $request->gambar_url);
+            $gallerys->gambar = name_image($request, 'gambar','assets/images/dokumentasi/');
             $gallerys->save();
         }
 
@@ -133,7 +133,7 @@ class GalleryController extends Controller
             // Mengupdate data
             $gallerys = Gallery::find($request->id);
             $gallerys->judul_gambar = $request->judul_gambar;
-            $gallerys->gambar = generate_image_name("assets/images/dokumentasi/", $request->gambar, $request->gambar_url) != '' ? generate_image_name("assets/images/dokumentasi/", $request->gambar, $request->gambar_url) : $gallerys->gambar;
+            $gallerys->gambar = $request->gambar != '' ? name_image($request, 'gambar','assets/images/dokumentasi/') : $gallerys->gambar;
             $gallerys->save();
         }
 

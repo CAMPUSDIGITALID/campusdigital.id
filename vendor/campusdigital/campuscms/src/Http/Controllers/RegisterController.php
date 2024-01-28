@@ -103,7 +103,7 @@ class RegisterController extends Controller
 		$user->jenis_kelamin = $data['jenis_kelamin'];
 		$user->nomor_hp = $data['nomor_hp'];
 		$user->user_kategori = $data['user_kategori'];
-		$user->reference = $data['ref'];
+		$user->reference = $data['reference'] != null ? $data['reference'] : $data['ref'];
 		$user->foto = '';
 		$user->role = role('student');
         $user->is_admin = 0;

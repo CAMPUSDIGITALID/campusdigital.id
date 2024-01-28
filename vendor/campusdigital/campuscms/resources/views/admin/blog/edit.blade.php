@@ -59,12 +59,13 @@
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label">Gambar</label>
                             <div class="col-md-10">
-                                <input type="file" id="file" class="d-none" accept="image/*">
-                                <a class="btn btn-sm btn-secondary btn-image" href="#"><i class="fa fa-image mr-2"></i>Pilih Gambar...</a>
+                                <label class="btn btn-secondary">
+                                    <input type="file" id="fileImage" name="gambar" class="d-none" accept="image/*" onChange="img_pathUrl(this);">
+                                    <i class="fa fa-image mr-2"></i>
+                                    <span>Pilih Gambar...</span>
+                                </label>
                                 <br>
-                                <img src="{{ image('assets/images/blog/'.$blog->blog_gambar, 'blog') }}" id="img-file" class="mt-2 img-thumbnail {{ $blog->blog_gambar != '' ? '' : 'd-none' }}" style="max-height: 150px">
-                                <input type="hidden" name="gambar">
-                                <input type="hidden" name="gambar_url">
+                                <img id="img-file"  style="max-height: 150px">
                             </div>
                         </div>
                         <div class="form-group row">

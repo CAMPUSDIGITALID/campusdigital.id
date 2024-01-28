@@ -4,6 +4,11 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/croppie/croppie.min.js') }}"></script>
 
 <script type="text/javascript">
+    //preview image
+    function img_pathUrl(input){
+        $('#img-file')[0].src = (window.URL ? URL : webkitURL).createObjectURL(input.files[0]);
+    }
+
     /* Croppie */
     var demo = $('#demo').croppie({
         viewport: {width: {{ $croppieWidth }}, height: {{ $croppieHeight }}},

@@ -85,7 +85,7 @@ class BlogController extends Controller
             $blog = new Blog;
             $blog->blog_title = $request->judul_artikel;
             $blog->blog_permalink = slugify($request->judul_artikel, 'blog', 'blog_permalink', 'id_blog', null);
-            $blog->blog_gambar = generate_image_name("assets/images/blog/", $request->gambar, $request->gambar_url);
+            $blog->blog_gambar = name_image($request, 'gambar','assets/images/blog/');
             $blog->blog_kategori = $request->kategori;
             $blog->blog_tag = generate_tag_by_name($request->get('tag'));
             $blog->blog_kontributor = $request->kontributor != null ? $request->kontributor : 0;
@@ -155,7 +155,7 @@ class BlogController extends Controller
             $blog = Blog::find($request->id);
             $blog->blog_title = $request->judul_artikel;
             $blog->blog_permalink = slugify($request->judul_artikel, 'blog', 'blog_permalink', 'id_blog', $request->id);
-            $blog->blog_gambar = generate_image_name("assets/images/blog/", $request->gambar, $request->gambar_url) != '' ? generate_image_name("assets/images/blog/", $request->gambar, $request->gambar_url) : $blog->blog_gambar;
+            $blog->blog_gambar = $request->gambar != '' ? name_image($request, 'gambar','assets/images/blog/') : $blog->blog_gambar;
             $blog->blog_kategori = $request->kategori;
             $blog->blog_tag = generate_tag_by_name($request->get('tag'));
             $blog->blog_kontributor = $request->kontributor != null ? $request->kontributor : 0;

@@ -1,6 +1,6 @@
 @extends('faturcms::template.admin.main')
 
-@section('title', 'Edit File')
+@section('title', 'Edit File Video')
 
 @section('content')
 
